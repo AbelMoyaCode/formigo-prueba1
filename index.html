@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formigo</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" />
+  <link rel="icon" href="img/LOGO-MOCHI.ico">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fbfb;
+    }
+
+    .boton {
+      background-color: #49e9c9;
+      color: #0e1b18;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      font-size: 1rem;
+      margin-bottom: 2em;
+    }
+
+    .boton:hover {
+      background-color: #3fc0a4;
+    }
+
+    .boton-secundario {
+      background-color: #e8f3f0;
+      color: #0e1b18;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .boton-secundario:hover {
+      background-color: #cfdad6;
+    }
+
+    .barra-progreso-completado {
+      background-color: #49e9c9;
+      height: 10px;
+      width: 60%;
+    }
+
+    .sutil-contorno {
+      border: 1px solid #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .texto-progreso {
+      flex: 1;
+    }
+
+    .imagen-espacio {
+      width: 150px;
+      height: auto;
+      margin-left: 1rem;
+    }
+
+    /* Animación de deslizamiento */
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-down {
+      animation: slideDown 0.3s ease-out;
+    }
+
+    /* Estilo para los cards */
+    .card-container {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transform: scale(1);
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+
+    .card-container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-container img {
+      border-radius: 8px;
+      width: 100%;
+      height: auto;
+      display: block;
+      background-color: transparent;
+    }
+
+    .card {
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .card p {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-top: 0.5em;
+    }
+
+    .card-container img {
+      border-radius: 12px;
+    }
+
+    /* Estilos específicos para el menú de perfil en modo responsive */
+    @media (max-width: 768px) {
+      #profileMenu {
+        position: relative;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen bg-[#f8fbfb] text-[#0e1b18]">
+  <!-- Encabezado -->
+  <header class="flex items-center justify-between border-b border-[#e8f3f0] p-4 md:px-10">
+    <!-- Logo y Título -->
+    <a href="index.html">
+      <div class="flex items-center gap-4" style="cursor: pointer;">
+        <img src="img/LOGO-MOCHI.png" alt="Formigo Logo" class="w-10 h-10" />
+        <h2 class="text-lg font-bold">Formigo</h2>
+      </div>
+    </a>
+
+    <!-- Menú de navegación y botones (versión escritorio) -->
+    <div class="hidden md:flex items-center gap-6">
+      <nav class="flex gap-6">
+        <a href="#" class="text-base font-medium">Panel</a>
+        <a href="#" class="text-base font-medium">Recursos</a>
+        <a href="#" class="text-base font-medium">Comunidad</a>
+        <a href="#" class="text-base font-medium">Empleos</a>
+      </nav>
+
+      <!-- Perfil con Menú Desplegable -->
+      <div class="relative">
+        <div id="profileButton" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 cursor-pointer" style='background-image: url("img/userprofile.png");'></div>
+        <div id="profileMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-[#e8f3f0] rounded-lg shadow-lg slide-down">
+          <a href="#" class="block px-4 py-2 text-sm text-[#0e1b18] hover:bg-[#f8fbfb]">Mi perfil</a>
+          <a href="#" class="block px-4 py-2 text-sm text-[#0e1b18] hover:bg-[#f8fbfb]">Configuración</a>
+          <a href="#" class="block px-4 py-2 text-sm text-[#0e1b18] hover:bg-[#f8fbfb]">Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de menú para dispositivos móviles -->
+    <div class="md:hidden">
+      <button id="menuButton" class="focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Menú desplegable para dispositivos móviles con perfil -->
+  <div id="mobileMenu" class="md:hidden hidden flex flex-col items-center p-2 border-t border-[#e8f3f0] slide-down">
+    <a href="#" class="py-2 text-lg font-medium">Panel</a>
+    <a href="#" class="py-2 text-lg font-medium">Recursos</a>
+    <a href="#" class="py-2 text-lg font-medium">Comunidad</a>
+    <a href="#" class="py-2 text-lg font-medium">Empleos</a>
+    <hr class="my-2 w-full border-[#e8f3f0]" />
+    <!-- Opciones del menú de perfil dentro del menú de hamburguesa en móvil -->
+    <a href="#" class="block px-4 py-2 text-sm text-[#0e1b18] hover:bg-[#f8fbfb]">Mi perfil</a>
+    <a href="#" class="block px-4 py-2 text-sm text-[#0e1b18] hover:bg-[#f8fbfb]">Configuración</a>
+    <a href="#" class="block px-4 py-2 text-sm text-[#0e1b18] hover:bg-[#f8fbfb]">Cerrar sesión</a>
+  </div>
+
+  <!-- Contenido principal -->
+  <main class="flex-grow container mx-auto px-4 md:px-10 max-w-5xl">
+    <!-- Sección enmarcada -->
+    <section class="sutil-contorno my-8">
+      <div class="texto-progreso">
+        <h1 class="text-2xl font-bold">¡Buenos días, Sarah!</h1>
+        <p class="mt-2 text-base">Progreso de preparación para prácticas:</p>
+        <div class="mt-1 bg-[#d0e6e2] rounded-full h-2">
+          <div class="barra-progreso-completado rounded-full"></div>
+        </div>
+        <p class="mt-1 text-sm text-[#4f9688]">25/40 completado</p>
+      </div>
+      <!-- Espacio reservado para imagen -->
+      <div class="imagen-espacio">
+        <img src="img/AVATAR-POSISION1-MOCHI.png" alt="Imagen de progreso" class="rounded-lg shadow-sm" />
+      </div>
+    </section>
+
+    <!-- Botón principal fuera del contorno -->
+    <div class="flex justify-center mt-6">
+      <button class="boton">¡Potencia tu preparación!</button>
+    </div>
+
+    <!-- Secciones principales -->
+    <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 p-4">
+      <div class="text-center card-container">
+        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl mb-2" style='background-image: url("img/autoevaluación-1.png");'></div>
+        <p class="text-sm font-medium card-name">Autoevaluación</p>
+      </div>
+      <div class="text-center card-container">
+        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl mb-2" style='background-image: url("img/simulador-de-entrevistas.png");'></div>
+        <p class="text-sm font-medium card-name">Simulador de Entrevistas</p>
+      </div>
+      <div class="text-center card-container">
+        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl mb-2" style='background-image: url("img/cocinador-cv.png");'></div>
+        <p class="text-sm font-medium card-name">Cocinador CV</p>
+      </div>
+      <div class="text-center card-container">
+        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl mb-2" style='background-image: url("img/Talleres-de-Habilidades.png");'></div>
+        <p class="text-sm font-medium card-name">Talleres de Habilidades</p>
+      </div>
+      <div class="text-center card-container">
+        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl mb-2" style='background-image: url("img/Logros.png");'></div>
+        <p class="text-sm font-medium card-name">Logros</p>
+      </div>
+    </section>
+    <div class="flex justify-center mt-6">
+      <button class="boton-secundario">Ver todos los logros</button>
+    </div>
+
+    <!-- Consejos Rápidos -->
+    <section class="mt-10">
+        <h2 class="text-lg font-bold">Consejos Rápidos</h2>
+        <div class="grid gap-4 mt-4">
+          <div class="flex items-center bg-[#f8fbfb] p-4 rounded-lg shadow-sm">
+            <img src="img/Dominando-la técnica-STAR.png" alt="Icono Estrella" class="w-12 h-12" />
+            <div class="ml-4 flex-1">
+              <p class="font-medium">Dominando la técnica STAR</p>
+              <p class="text-sm text-[#4f9688]">Aprende a responder las preguntas más comunes en entrevistas.</p>
+            </div>
+            <button class="boton-secundario">Ver video</button>
+          </div>
+          <div class="flex items-center bg-[#f8fbfb] p-4 rounded-lg shadow-sm">
+            <img src="img/Test de-personalidad-para-empleo.png" alt="Icono Personalidad" class="w-12 h-12" />
+            <div class="ml-4 flex-1">
+              <p class="font-medium">Test de personalidad para empleo</p>
+              <p class="text-sm text-[#4f9688]">Conoce tus fortalezas y debilidades personales.</p>
+            </div>
+            <button class="boton-secundario">Tomar test</button>
+          </div>
+          <div class="flex items-center bg-[#f8fbfb] p-4 rounded-lg shadow-sm">
+            <img src="img/Creador-de-CV.png" alt="Icono CV" class="w-12 h-12" />
+            <div class="ml-4 flex-1">
+              <p class="font-medium">Creador de CV</p>
+              <p class="text-sm text-[#4f9688]">Crea un currículum profesional en minutos.</p>
+            </div>
+            <button class="boton-secundario">Probar ahora</button>
+          </div>
+          <div class="flex items-center bg-[#f8fbfb] p-4 rounded-lg shadow-sm">
+            <img src="img/python-para-principiantes.png" alt="Icono Python" class="w-12 h-12" />
+            <div class="ml-4 flex-1">
+              <p class="font-medium">Python para principiantes</p>
+              <p class="text-sm text-[#4f9688]">Domina habilidades demandadas con nuestros talleres.</p>
+            </div>
+            <button class="boton-secundario">Inscribirse</button>
+          </div>
+        </div>
+      </section>
+    </main>    
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="bg-[#f8fbfb] py-6 text-center border-t border-[#e8f3f0]">
+    <div class="flex justify-center gap-4 mb-4 text-[#4f9688]">
+      <a href="#" class="hover:underline">Acerca de</a>
+      <a href="#" class="hover:underline">Equipo</a>
+      <a href="#" class="hover:underline">Blog</a>
+      <a href="#" class="hover:underline">Centro de Ayuda</a>
+    </div>
+    <p class="text-sm text-[#4f9688]">2023 Formigo</p>
+  </footer>
+
+  <!-- Scripts para el menú desplegable en dispositivos móviles y el perfil -->
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const profileButton = document.getElementById('profileButton');
+    const profileMenu = document.getElementById('profileMenu');
+
+    // Toggle para el menú de navegación en móvil
+    menuButton.addEventListener('click', function () {
+      mobileMenu.classList.toggle('hidden');
+      if (!mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('slide-down');
+      } else {
+        mobileMenu.classList.remove('slide-down');
+      }
+    });
+
+    // Toggle para el menú de perfil en escritorio
+    profileButton.addEventListener('click', function (e) {
+      e.stopPropagation();
+      profileMenu.classList.toggle('hidden');
+      profileMenu.classList.add('slide-down');
+    });
+
+    // Cerrar el menú de perfil al hacer clic fuera
+    window.addEventListener('click', function (e) {
+      if (!profileButton.contains(e.target) && !profileMenu.contains(e.target)) {
+        profileMenu.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
